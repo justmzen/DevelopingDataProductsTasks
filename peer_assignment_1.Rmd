@@ -1,0 +1,39 @@
+---
+title: "Interactive Map with Leaflet"
+author: "justmzen"
+date: "16/12/2020"
+output: html_document
+---
+
+This webpage shows a map of Italy with a focus on Milan and Rome. Each circle around the cities represent its population. The larger the circle, the larger the population.
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE)
+```
+
+## Libraries loading
+
+```{r Libraries loading}
+library(leaflet)
+```
+
+## Data creation
+
+```{r Data creation}
+coords <- data.frame(lat = c(45.4773, 41.9109),
+                 lng = c(9.1815, 12.4818))
+population <- c(1352000, 2873000)
+cities <- c('Milan', 'Rome')
+```
+
+## Map visualization
+
+```{r Map creation and visualization}
+my_map<- coords %>% leaflet() %>% 
+        addTiles() %>%
+        addMarkers(popup = cities) %>%
+        addCircles(weight = 1, radius = sqrt(population)*30)
+
+my_map
+```
